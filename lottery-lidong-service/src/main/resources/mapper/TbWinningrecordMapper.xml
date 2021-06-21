@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sankuai.mdp.lotterylidongservice.dal.mapper.TbWinningRecordMapper">
+  <resultMap id="BaseResultMap" type="com.sankuai.mdp.lotterylidongservice.dal.entity.TbWinningRecord">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ActivityID" jdbcType="INTEGER" property="activityId" />
+    <result column="PrizeID" jdbcType="INTEGER" property="prizeId" />
+    <result column="GoodsID" jdbcType="INTEGER" property="goodsId" />
+    <result column="GoodsName" jdbcType="VARCHAR" property="goodsName" />
+    <result column="IP" jdbcType="VARCHAR" property="ip" />
+    <result column="LotteryTime" jdbcType="TIMESTAMP" property="lotteryTime" />
+  </resultMap>
+
+  <select id="queryLotteryResult" resultMap="BaseResultMap">
+    select * from TB_WinningRecord
+  </select>
+
+  <insert id="insert" parameterType="java.util.Map">
+    insert into TB_WinningRecord
+    (`ID`, `ActivityID`, `PrizeID`,`GoodsID`,`GoodsName`,`IP`,`LotteryTime`)
+    values
+    (#{id},#{activityId},#{prizeId},#{goodsId},#{goodsName},#{ip},NOW())
+  </insert>
+</mapper>

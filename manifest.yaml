@@ -1,0 +1,26 @@
+# 字段说明参见 https://km.sankuai.com/page/13945939
+# 注意：如果项目在 Plus 发布系统上使用的是 MDP 发布类型，则项目不使用当前配置。参见：https://docs.sankuai.com/dp/hbar/mdp-docs/master/deploy/#32
+version: v1
+common:
+build:
+    os: centos7
+    tools:
+        oracle-jdk: 8
+        maven: 3.6.0
+    run:
+        workDir: ./
+        cmd:
+            - sh deploy/compile.sh
+    target:
+        distDir: ./lottery-lidong-service/target/
+        files:
+            - ./*.jar
+            - ../../deploy
+autodeploy:
+    hulkos: centos7
+    targetDir: /opt/meituan/lottery-lidong-service/
+    env:
+    run: sh deploy/run.sh
+    check: sh deploy/check.sh
+    checkRetry: 3 #后面下掉，加默认值为1
+    CheckInterval: 20s #后面下掉

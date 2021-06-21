@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sankuai.mdp.lotterylidongservice.dal.mapper.TbLotteryActivityMapper">
+    <resultMap id="BaseResultMap" type="com.sankuai.mdp.lotterylidongservice.dal.entity.TbLotteryActivity">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="ActiveStatus" jdbcType="TINYINT" property="activeStatus"/>
+        <result column="StartTime" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="EndTime" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="Uuid" jdbcType="VARCHAR" property="uuid"/>
+    </resultMap>
+
+    <select id="selectByID" resultType="com.sankuai.mdp.lotterylidongservice.dal.entity.TbLotteryActivity">
+    select `ID`,`ActiveStatus`,`StartTime`,`EndTime`,`Uuid`
+    from TB_LotteryActivity
+    where `ID` = #{id}
+    </select>
+    <select id="selectByUuid" resultType="com.sankuai.mdp.lotterylidongservice.dal.entity.TbLotteryActivity">
+    select `ID`,`ActiveStatus`,`StartTime`,`EndTime`,`Uuid`
+    from TB_LotteryActivity
+    where `Uuid` = #{uuid}
+    </select>
+    <select id="selectIDByUuid" resultType="java.lang.Integer">
+    select `ID`
+    from TB_LotteryActivity
+    where `Uuid` = #{uuid}
+    </select>
+
+</mapper>

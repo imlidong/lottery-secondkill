@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sankuai.mdp.lotterylidongservice.dal.mapper.TbGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.sankuai.mdp.lotterylidongservice.dal.entity.TbGoods">
+    <id column="TB_Goods_ID" jdbcType="INTEGER" property="ID" />
+    <result column="TB_Goods_GoodsName" jdbcType="VARCHAR" property="goodsName" />
+    <result column="TB_Goods_Price" jdbcType="INTEGER" property="price" />
+    <result column="TB_Goods_ImageList" jdbcType="VARCHAR" property="imageList" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TB_Goods.ID as TB_Goods_ID, TB_Goods.GoodsName as TB_Goods_GoodsName, TB_Goods.Price as TB_Goods_Price, 
+    TB_Goods.ImageList as TB_Goods_ImageList
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TB_Goods TB_Goods
+    where TB_Goods.ID = #{ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TB_Goods
+    where ID = #{ID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="ID" parameterType="com.sankuai.mdp.lotterylidongservice.dal.entity.TbGoods" useGeneratedKeys="true">
+    insert into TB_Goods (GoodsName, Price, ImageList
+      )
+    values (#{goodsName,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{imageList,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="ID" parameterType="com.sankuai.mdp.lotterylidongservice.dal.entity.TbGoods" useGeneratedKeys="true">
+    insert into TB_Goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsName != null">
+        GoodsName,
+      </if>
+      <if test="price != null">
+        Price,
+      </if>
+      <if test="imageList != null">
+        ImageList,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="imageList != null">
+        #{imageList,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sankuai.mdp.lotterylidongservice.dal.entity.TbGoods">
+    update TB_Goods
+    <set>
+      <if test="goodsName != null">
+        GoodsName = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        Price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="imageList != null">
+        ImageList = #{imageList,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sankuai.mdp.lotterylidongservice.dal.entity.TbGoods">
+    update TB_Goods
+    set GoodsName = #{goodsName,jdbcType=VARCHAR},
+      Price = #{price,jdbcType=INTEGER},
+      ImageList = #{imageList,jdbcType=VARCHAR}
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
+</mapper>

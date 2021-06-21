@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="goods" targetRuntime="MyBatis3">
+        <property name="mybatisVersion" value="3.5.0"/>
+        <!-- 乐观锁插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.OptimisticLockerPlugin">
+            <!-- 是否启用自定义nextVersion，默认不启用(插件会默认使用sql的 set column = column + 1) -->
+            <property name="customizedNextVersion" value="false"/>
+        </plugin>
+        <!-- 查询单条数据插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin"/>
+        <!-- Example Criteria 增强插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ExampleEnhancedPlugin">
+            <!-- 是否支持已经过时的andIf方法（推荐使用when代替），默认支持 -->
+            <property name="enableAndIf" value="false"/>
+        </plugin>
+        <!-- 数据Model链式构建插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ModelBuilderPlugin"/>
+
+        <!-- 生成的entity实体引入lombok注解 Getter,Setter,Builder -->
+        <plugin type="com.meituan.mdp.mybatis.generator.plugins.LombokPlugin"/>
+        <!--生成通用sql方法类，包含通用方法。共MdpMapperPlugin、MdpSimpleMapperPlugin、MdpMixedMapperPlugin
+        3个插件，根据诉求决定使用哪个插件，具体区别见 https://docs.sankuai.com/dp/hbar/mdp-docs/master/mbg/ -->
+        <plugin type="com.meituan.mdp.mybatis.generator.plugins.MdpMapperPlugin"/>
+        <!--        <plugin type="com.meituan.mdp.mybatis.generator.plugins.MdpSimpleMapperPlugin"/>-->
+        <!--        <plugin type="com.meituan.mdp.mybatis.generator.plugins.MdpMixedMapperPlugin"/>-->
+        <!-- 每次执行插件生成的 xml 时通用的方法会覆盖的 -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <!-- 生成批量插入方法插件，默认不需要，需要时配置此插件。使用条件：
+        Context targetRuntime="Mybatis3" ; javaClientGenerator type="XMLMAPPER、MIXEDMAPPER"-->
+        <!--        <plugin type="com.meituan.mdp.mybatis.generator.plugins.BatchInsertPlugin"/>-->
+        <!--分页插件，默认不开启。使用条件：Context targetRuntime="Mybatis3" ; javaClientGenerator
+        type="XMLMAPPER、MIXEDMAPPER"-->
+        <plugin type="com.meituan.mdp.mybatis.generator.plugins.LimitPlugin"/>
+        <!-- targetRuntime="Mybatis3"时需要，Example类存储路径 -->
+        <plugin type="com.meituan.mdp.mybatis.generator.plugins.ExampleTargetPlugin">
+            <property name="targetPackage" value="com.sankuai.mdp.lotterylidongservice.dal.example"/>
+        </plugin>
+
+        <!-- 从数据库中的字段的comment做为生成entity的属性注释 -->
+        <commentGenerator type="com.meituan.mdp.mybatis.generator.internal.RemarksCommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!--使用前替换数据库名,账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/SP0?characterEncoding=UTF8&amp;socketTimeout=60000&amp;allowMultiQueries=true&amp;useSSL=false"
+                        userId="root"
+                        password="12345678">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.sankuai.mdp.lotterylidongservice.dal.entity1"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.sankuai.mdp.lotterylidongservice.dal.dao"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--配置需要生成的表-->
+        <table tableName="TB_LotteryActivity" domainObjectName="TbLotteryActivity">
+        </table>
+
+        <table tableName="TB_Prize" domainObjectName="TbPrize">
+            <property name="customizedNextVersion" value="true"/>
+            <property name="versionColumn" value="stock"/>
+        </table>
+
+        <table tableName="TB_WinningRecord" domainObjectName="TbWinningRecord">
+        </table>
+
+        <table tableName="TB_Goods" domainObjectName="TbGoods">
+        </table>
+
+    </context>
+
+</generatorConfiguration>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sankuai.mdp</groupId>
+    <artifactId>sample</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>sample</name>
+
+    <parent>
+        <groupId>com.meituan.mdp</groupId>
+        <artifactId>mdp-parent</artifactId>
+        <version>1.6.3</version>
+    </parent>
+
+
+    <modules>
+        <module>lottery-lidong-api</module>
+        <module>lottery-lidong-service</module>
+        <module>lottery-lidong-web-service</module>
+    </modules>
+
+    <dependencies>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.sankuai.mdp</groupId>
+                <artifactId>lottery-lidong-api</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sankuai.mdp</groupId>
+                <artifactId>lottery-lidong-service</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="info">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %-5level %logger{30}.%method - %msg%n" />
+        </Console>
+
+        <!--默认按天&按512M文件大小切分日志，默认最多保留30个日志文件，非阻塞模式-->
+        <XMDFile name="infoAppender" fileName="info.log" sizeBasedTriggeringSize="512M"
+                 rolloverMax="30">
+            <Filters>
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </XMDFile>
+
+        <XMDFile name="warnAppender" fileName="warn.log" sizeBasedTriggeringSize="512M"
+                 rolloverMax="30">
+            <Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </XMDFile>
+
+        <XMDFile name="errorAppender" fileName="error.log" sizeBasedTriggeringSize="512M"
+                 rolloverMax="30">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+        </XMDFile>
+
+        <!--日志远程上报-->
+        <Scribe name="ScribeAppender">
+            <!--远程日志默认使用appkey作为日志名(app.properties文件中的app.name字段)，也可自定义scribeCategory属性，scribeCategory优先级高于appkey-->
+            <LcLayout/>
+        </Scribe>
+        <Async name="ScribeAsyncAppender" blocking="false">
+            <AppenderRef ref="ScribeAppender"/>
+        </Async>
+        <CatAppender name="catAppender"/>
+        <MDPTraceAppender name="mdpTrace"/>
+    </appenders>
+
+    <loggers>
+        <!--远程日志，详细使用说明参见 MDP 文档中日志中心部分 https://docs.sankuai.com/dp/hbar/mdp-docs/master/log/#2 -->
+        <logger name="scribe" level="info" additivity="false">
+            <appender-ref ref="ScribeAsyncAppender" />
+        </logger>
+
+        <root level="info">
+            <appender-ref ref="infoAppender"/>
+            <appender-ref ref="warnAppender"/>
+            <appender-ref ref="errorAppender"/>
+            <appender-ref ref="Console" />
+            <appender-ref ref="catAppender"/>
+            <appender-ref ref="mdpTrace"/>
+        </root>
+    </loggers>
+</configuration>

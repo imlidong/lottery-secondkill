@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sankuai.mdp.lotterylidongservice.dal.mapper.TbPrizeMapper">
+    <resultMap id="BaseResultMap" type="com.sankuai.mdp.lotterylidongservice.dal.entity.TbPrize">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="ActivityID" jdbcType="INTEGER" property="activityId"/>
+        <result column="GoodsID" jdbcType="INTEGER" property="goodsId"/>
+        <result column="PrizeLevel" jdbcType="INTEGER" property="prizeLevel"/>
+        <result column="Probability" jdbcType="INTEGER" property="probability"/>
+        <result column="Stock" jdbcType="INTEGER" property="stock"/>
+    </resultMap>
+
+    <select id="selectByActivityID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select `ID`,`ActivityID`,`GoodsID`,`PrizeLevel`,`Probability`,`Stock`
+        from TB_Prize
+        where `ActivityID` = #{activityId}
+    </select>
+
+    <update id="deductStock" parameterType="java.util.Map">
+        update TB_Prize
+        set `Stock` = `Stock`-1
+        where `ID`= #{id} and <![CDATA[ `Stock`> 0]]>
+    </update>
+
+    <select id="queryPrizeByID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select `ID`,`ActivityID`,`GoodsID`,`PrizeLevel`,`Probability`,`Stock`
+        from TB_Prize
+        where `ID` = #{id}
+    </select>
+</mapper>

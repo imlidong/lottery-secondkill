@@ -1,0 +1,8 @@
+# 注意：仅当项目在 Plus 发布系统上使用的是 MDP 发布类型时此文件生效。
+apps:
+  - appkey: com.sankuai.lotterylidong52 #选填，如果填了必须是正确的appkey，否则会导致创建plus检查不通过
+    framework: mdp # 必填，表示支持的框架类型
+    extension: # 选填，由框架提供，供plus发布项初始化使用。
+      PUB_MODULE: lottery-lidong-service # 选填，表示多模块项目中当前plus发布的目标模块，单模块不需要填写
+      #JVM_EXT_ARGS:       # 选填，支持默认配置之外的JVM运行参数（**仅支持增加不支持修改**）
+      #TEST_URL:       # 选填，支持配置自定义的testurl
